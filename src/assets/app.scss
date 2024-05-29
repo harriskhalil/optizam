@@ -1,0 +1,151 @@
+$breakpoints: (
+        'xs':0px,
+        'sm': 640px,
+        'md': 768px,
+        'lg': 1024px,
+        'xl': 1280px
+);
+
+$col-percent-map: (
+        1: 8.33%,
+        2: 16.66%,
+        3: 25%,
+        4: 33.33%,
+        5: 41.66%,
+        6: 50%,
+        7: 58.33%,
+        8: 66.66%,
+        9: 75%,
+        10: 83.33%,
+        11: 91.66%,
+        12: 100%
+);
+
+$text-color-map: (
+        'green': #d4eadb,
+        'dark-green':#7ac095,
+        'dark-blue': #061637,
+        'sky-blue':#3963ad,
+        'light-blue':#6885ad,
+        'bold-blue':#293f6d,
+        'white':#ffffff,
+        'gray':#eff0f2,
+        'gray-bold':#b5b5b5,
+        'gray-dark':#f0f1f3,
+        'black':#000000,
+        'orange':#f6d8c9,
+        'dark-orange':#dfa690,
+        'red':#de5848
+);
+
+
+$measures-map: (
+        xl: 48px,
+        lg: 24px,
+        md: 16px,
+        sm: 8px,
+        xs: 4px ,
+        none:0px
+);
+
+
+$fontsize-map:(
+        xl: 1.953rem,
+        lg: 1.563rem,
+        md: 1.25rem,
+        sm: 1rem,
+        xs: 0.8rem,
+);
+
+@mixin apply-col-classes($prefix, $property, $map) {
+  @each $size, $val in $map {
+    .#{$prefix}-#{$size} {
+      #{$property}: 0 0 $val;
+      max-width: $val;
+    }
+  }
+}
+
+@mixin apply-map($prefix, $property, $map) {
+  @each $size, $val in $map {
+    .#{$prefix}-#{$size} {
+      #{$property}: $val;
+    }
+  }
+}
+@mixin apply-margin-padding($prefix, $property1,$property2,$property3,$property4, $map) {
+  @each $size, $val in $map {
+    .#{$prefix}-#{$size} {
+      #{$property1}: $val;
+      #{$property2}: $val;
+      #{$property3}: $val;
+      #{$property4}: $val;
+    }
+  }
+}
+
+@mixin apply-hidden-classes($prefix) {
+  .#{$prefix}\:hidden {
+    display: none;
+  }
+}
+@mixin apply-block-classes($prefix) {
+  .#{$prefix}\:block {
+    display: block;
+  }
+}
+
+@mixin generate-responsive-classes($breakpoints, $col-percent-map) {
+  @each $prefix, $size in $breakpoints {
+    @media (min-width: #{$size}) {
+      @include apply-col-classes('col-' + $prefix, 'flex', $col-percent-map);
+      @include apply-hidden-classes($prefix);
+      @include apply-block-classes($prefix);
+      @include apply-map('pr-'+ $prefix, 'padding-right', $measures-map);
+      @include apply-map('mr-'+ $prefix, 'margin-right', $measures-map);
+      @include apply-map('pl-'+ $prefix, 'padding-left', $measures-map);
+      @include apply-map('ml-'+ $prefix, 'margin-left', $measures-map);
+      @include apply-map('pt-'+ $prefix, 'padding-top', $measures-map);
+      @include apply-map('mt-'+ $prefix, 'margin-top', $measures-map);
+      @include apply-map('mb-'+ $prefix, 'margin-bottom', $measures-map);
+      @include apply-map('pb-'+ $prefix, 'padding-bottom', $measures-map);
+      @include apply-margin-padding('ma-'+ $prefix, 'margin-left', 'margin-right', 'margin-top', 'margin-bottom', $measures-map);
+      @include apply-margin-padding('pa-'+ $prefix, 'padding-left', 'padding-right', 'padding-top', 'padding-bottom', $measures-map);
+      @include apply-map('text-'+ $prefix, 'font-size', $fontsize-map);
+    }
+  }
+}
+
+@include generate-responsive-classes($breakpoints, $col-percent-map);
+
+
+
+
+@include apply-map('text', 'color', $text-color-map);
+@include apply-map('bg', 'background-color', $text-color-map);
+
+//===========================All Padding left & right and All Margin left & right Starts===========================//
+
+@include apply-map('pr', 'padding-right', $measures-map);
+@include apply-map('mr', 'margin-right', $measures-map);
+@include apply-map('pl', 'padding-left', $measures-map);
+@include apply-map('ml', 'margin-left', $measures-map);
+@include apply-map('pt', 'padding-top', $measures-map);
+@include apply-map('mt', 'margin-top', $measures-map);
+@include apply-map('mb', 'margin-bottom', $measures-map);
+@include apply-map('pb', 'padding-bottom', $measures-map);
+//===========================All Padding left & right and All Margin left & right Ends===========================//
+
+//===========================Font Size Starts===========================//
+@include apply-map('text', 'font-size', $fontsize-map);
+//===========================Font Size Ends===========================//
+
+
+//===========================All Padding and All Margin Starts===========================//
+
+@include apply-margin-padding('ma', 'margin-left', 'margin-right', 'margin-top', 'margin-bottom', $measures-map);
+@include apply-margin-padding('pa', 'padding-left', 'padding-right', 'padding-top', 'padding-bottom', $measures-map);
+//===========================All Padding and All Margin Ends===========================//
+
+
+

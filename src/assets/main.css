@@ -1,0 +1,28 @@
+/*@import './base.css';*/
+@import './app.scss';
+body{
+    margin: 0;
+    font-family: 'Lato', sans-serif;;
+}
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.text-bold{
+    font-weight: bold;
+}
+.flex-direction-col{
+    flex-direction: column;
+}
+.card{
+    box-shadow: 0 1px 5px #0003, 0 2px 2px #00000024, 0 3px 1px -2px #0000001f;
+    border-radius: 10px;
+    vertical-align: top;
+    background: #fff;
+    position: relative;
+}
+.image {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 25px
+}
